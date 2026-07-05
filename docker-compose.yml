@@ -1,0 +1,15 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: user-cache-app
+    environment:
+      APP_PORT: ${APP_PORT:-8080}
+      EXTERNAL_API_URL: ${EXTERNAL_API_URL:-https://jsonplaceholder.typicode.com}
+      HTTP_CLIENT_TIMEOUT: ${HTTP_CLIENT_TIMEOUT:-5s}
+      CACHE_TTL: ${CACHE_TTL:-1m}
+      GIN_MODE: release
+    ports:
+      - "${APP_PORT:-8080}:${APP_PORT:-8080}"
+    restart: unless-stopped
